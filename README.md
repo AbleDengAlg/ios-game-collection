@@ -42,6 +42,8 @@ A professional metronome with real drum sounds (Rim & Cowbell), accurate timing,
 3. Beat 1 (accent) plays a Rim sound, beats 2-4 play Cowbell
 4. Watch the beat bars light up in rhythm!
 
+📖 [Metronome Tutorial / 项目教学文档](Metronome/TUTORIAL.md) — Learn the code line by line!
+
 ## 🚀 Getting Started
 
 ### Prerequisites
