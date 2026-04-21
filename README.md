@@ -1,12 +1,13 @@
-# 🎮 iOS Game Collection
+# 🎮 iOS Game & Tool Collection
 
-A collection of classic mini-games and tools built with SwiftUI. Currently featuring **Guess Number** and **Metronome**, with more coming soon!
+A collection of classic mini-games and AI-powered tools built with SwiftUI. Currently featuring **Guess Number**, **Metronome**, and **Spleeter App** (Audio Separation), with more coming soon!
 
 [![Swift](https://img.shields.io/badge/Swift-5.9+-orange.svg)](https://swift.org)
 [![SwiftUI](https://img.shields.io/badge/SwiftUI-iOS%2017+-blue.svg)](https://developer.apple.com/xcode/swiftui/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-iOS%20%7C%20macOS-lightgrey.svg)](https://developer.apple.com)
 
-## 🎯 Games Included
+## 🎯 Projects Included
 
 ### 1. Guess Number (猜数字)
 A classic number guessing game where you try to guess a randomly generated number between 1 and 200.
@@ -44,6 +45,27 @@ A professional metronome with real drum sounds (Rim & Cowbell), accurate timing,
 
 📖 [Metronome Tutorial / 项目教学文档](Metronome/TUTORIAL.md) — Learn the code line by line!
 
+### 3. Spleeter App (音频分离)
+An offline AI-powered vocal & accompaniment separation app. Uses Spleeter INT8 ONNX models via sherpa-onnx C API + ONNX Runtime.
+
+**Features:**
+- 🎤 AI vocal/accompaniment separation (Spleeter 2-stems INT8)
+- 🔒 Fully offline — no internet required
+- 📱 Dual platform: iOS (iPhone/iPad) + macOS
+- 🎵 WAV file input, play & save separated stems
+- ⚡ Background thread inference, smooth UI
+- 🎨 Platform-adaptive layouts (iOS scroll + macOS windowed)
+
+**How to Use:**
+1. Tap "Select WAV File" to choose an audio file
+2. Tap "Separate Audio" to run AI inference
+3. Listen to separated Vocals & Accompaniment independently
+4. Save stems to your Documents folder
+
+**⚠️ Note:** Requires downloading Spleeter INT8 ONNX models (~50MB) before first use.
+
+📖 [Spleeter Tutorial / 项目教学文档](spleeter_onnx_sherpa/SpleeterApp/TUTORIAL.md) — Learn the code line by line!
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -65,20 +87,28 @@ cd ios-game-collection/guessNumber && open guessNumber.xcodeproj
 
 # Metronome
 cd ios-game-collection/Metronome && open Metronome.xcodeproj
+
+# Spleeter App (Audio Separation)
+cd ios-game-collection/spleeter_onnx_sherpa/SpleeterApp && open SpleeterApp.xcodeproj
 ```
 
 3. Build and run (⌘+R) on your iOS Simulator or device
 
+**⚠️ Important for Spleeter App:**
+- Download Spleeter INT8 ONNX models before building
+- Models must be added to `SpleeterApp` target's Copy Bundle Resources
+
 ## 📱 Screenshots
 
-| Guess Number | Metronome |
-|:---:|:---:|
-| 🎯 | 🎵 |
+| Guess Number | Metronome | Spleeter App |
+|:---:|:---:|:---:|
+| 🎯 | 🎵 | 🎤 |
 
 ## 🗺️ Roadmap
 
 - [x] Guess Number (猜数字)
 - [x] Metronome (节拍器)
+- [x] Spleeter App (音频分离)
 - [ ] Tic-Tac-Toe (井字棋)
 - [ ] 2048
 - [ ] Snake (贪吃蛇)
@@ -93,7 +123,8 @@ cd ios-game-collection/Metronome && open Metronome.xcodeproj
 
 - **Framework:** SwiftUI
 - **Language:** Swift 5.9+
-- **Audio:** AVAudioEngine (Metronome)
+- **Audio:** AVAudioEngine (Metronome), AVAudioPlayer + AVFoundation (Spleeter)
+- **AI Inference:** ONNX Runtime + sherpa-onnx C API (Spleeter)
 - **Data Persistence:** SwiftData
 - **Architecture:** MVVM
 

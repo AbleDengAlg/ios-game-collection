@@ -1,0 +1,515 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B101000000000000000001AA /* SpleeterAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000001B /* SpleeterAppApp.swift */; };
+		B102000000000000000001AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000002B /* ContentView.swift */; };
+		B103000000000000000001AA /* SeparatorEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000003B /* SeparatorEngine.swift */; };
+		B104000000000000000001AA /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000004B /* AudioPlayer.swift */; };
+		B105000000000000000001AA /* AudioPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000005B /* AudioPicker.swift */; };
+		B106000000000000000001AA /* SherpaOnnx.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000006B /* SherpaOnnx.swift */; };
+		B107000000000000000001AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000007B /* Assets.xcassets */; };
+		B108000000000000000001AA /* vocals.int8.onnx in Resources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000008B /* vocals.int8.onnx */; };
+		B109000000000000000001AA /* accompaniment.int8.onnx in Resources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000009B /* accompaniment.int8.onnx */; };
+		B110000000000000000001AA /* sherpa-onnx.xcframework (iOS) in Frameworks */ = {isa = PBXBuildFile; fileRef = A100000000000000000000AB /* sherpa-onnx.xcframework (iOS) */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B111000000000000000001AA /* onnxruntime.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A100000000000000000000BB /* onnxruntime.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B112000000000000000001AA /* sherpa-onnx.xcframework (iOS) in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A100000000000000000000AB /* sherpa-onnx.xcframework (iOS) */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B113000000000000000001AA /* onnxruntime.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A100000000000000000000BB /* onnxruntime.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C101000000000000000001AA /* SpleeterAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000001B /* SpleeterAppApp.swift */; };
+		C102000000000000000001AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000002B /* ContentView.swift */; };
+		C103000000000000000001AA /* SeparatorEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000003B /* SeparatorEngine.swift */; };
+		C104000000000000000001AA /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000004B /* AudioPlayer.swift */; };
+		C105000000000000000001AA /* AudioPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000005B /* AudioPicker.swift */; };
+		C106000000000000000001AA /* SherpaOnnx.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000006B /* SherpaOnnx.swift */; };
+		C107000000000000000001AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000007B /* Assets.xcassets */; };
+		C108000000000000000001AA /* vocals.int8.onnx in Resources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000008B /* vocals.int8.onnx */; };
+		C109000000000000000001AA /* accompaniment.int8.onnx in Resources */ = {isa = PBXBuildFile; fileRef = A1000000000000000000009B /* accompaniment.int8.onnx */; };
+		C110000000000000000001AA /* sherpa-onnx.xcframework (macOS) in Frameworks */ = {isa = PBXBuildFile; fileRef = A100000000000000000000CB /* sherpa-onnx.xcframework (macOS) */; };
+		C111000000000000000001AA /* onnxruntime-macos.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A100000000000000000000DB /* onnxruntime-macos.xcframework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B120000000000000000001AA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B112000000000000000001AA /* sherpa-onnx.xcframework (iOS) in Embed Frameworks */,
+				B113000000000000000001AA /* onnxruntime.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C120000000000000000001AA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A1000000000000000000001B /* SpleeterAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpleeterAppApp.swift; sourceTree = "<group>"; };
+		A1000000000000000000002B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A1000000000000000000003B /* SeparatorEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorEngine.swift; sourceTree = "<group>"; };
+		A1000000000000000000004B /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		A1000000000000000000005B /* AudioPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPicker.swift; sourceTree = "<group>"; };
+		A1000000000000000000006B /* SherpaOnnx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SherpaOnnx.swift; sourceTree = "<group>"; };
+		A1000000000000000000007B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A1000000000000000000008B /* vocals.int8.onnx */ = {isa = PBXFileReference; lastKnownFileType = file; name = vocals.int8.onnx; path = "../sherpa-onnx-spleeter-2stems-int8/vocals.int8.onnx"; sourceTree = "<group>"; };
+		A1000000000000000000009B /* accompaniment.int8.onnx */ = {isa = PBXFileReference; lastKnownFileType = file; name = accompaniment.int8.onnx; path = "../sherpa-onnx-spleeter-2stems-int8/accompaniment.int8.onnx"; sourceTree = "<group>"; };
+		A100000000000000000000AB /* sherpa-onnx.xcframework (iOS) */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "sherpa-onnx.xcframework (iOS)"; path = "../../sherpa_onnx_voice/sherpa-onnx/build-ios-no-tts/sherpa-onnx.xcframework"; sourceTree = "<group>"; };
+		A100000000000000000000BB /* onnxruntime.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = onnxruntime.xcframework; path = "../../sherpa_onnx_voice/sherpa-onnx/build-ios-no-tts/ios-onnxruntime/1.24.4/onnxruntime-ios-static-xcframework-1.24.4/onnxruntime.xcframework"; sourceTree = "<group>"; };
+		A100000000000000000000CB /* sherpa-onnx.xcframework (macOS) */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "sherpa-onnx.xcframework (macOS)"; path = "../../sherpa_onnx_voice/sherpa-onnx/build-swift-macos/sherpa-onnx.xcframework"; sourceTree = "<group>"; };
+		A100000000000000000000DB /* onnxruntime-macos.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = "onnxruntime-macos.xcframework"; path = "../../sherpa_onnx_voice/sherpa-onnx/build-swift-macos/onnxruntime-macos.xcframework"; sourceTree = "<group>"; };
+		A100000000000000000000EB /* SherpaOnnx-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SherpaOnnx-Bridging-Header.h"; sourceTree = "<group>"; };
+		A100000000000000000000FA /* SpleeterApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpleeterApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A100000000000000000000FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A100000000000000000001FA /* SpleeterApp macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SpleeterApp macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B130000000000000000001AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B110000000000000000001AA /* sherpa-onnx.xcframework (iOS) in Frameworks */,
+				B111000000000000000001AA /* onnxruntime.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C130000000000000000001AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C110000000000000000001AA /* sherpa-onnx.xcframework (macOS) in Frameworks */,
+				C111000000000000000001AA /* onnxruntime-macos.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A200000000000000000001FA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A100000000000000000000FA /* SpleeterApp.app */,
+				A100000000000000000001FA /* SpleeterApp macOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A200000000000000000002FA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A100000000000000000000AB /* sherpa-onnx.xcframework (iOS) */,
+				A100000000000000000000BB /* onnxruntime.xcframework */,
+				A100000000000000000000CB /* sherpa-onnx.xcframework (macOS) */,
+				A100000000000000000000DB /* onnxruntime-macos.xcframework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A200000000000000000003FA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A1000000000000000000008B /* vocals.int8.onnx */,
+				A1000000000000000000009B /* accompaniment.int8.onnx */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		A200000000000000000004FA /* SpleeterApp */ = {
+			isa = PBXGroup;
+			children = (
+				A1000000000000000000001B /* SpleeterAppApp.swift */,
+				A1000000000000000000002B /* ContentView.swift */,
+				A1000000000000000000003B /* SeparatorEngine.swift */,
+				A1000000000000000000004B /* AudioPlayer.swift */,
+				A1000000000000000000005B /* AudioPicker.swift */,
+				A1000000000000000000006B /* SherpaOnnx.swift */,
+				A100000000000000000000EB /* SherpaOnnx-Bridging-Header.h */,
+				A1000000000000000000007B /* Assets.xcassets */,
+				A100000000000000000000FB /* Info.plist */,
+				A200000000000000000003FA /* Models */,
+			);
+			path = SpleeterApp;
+			sourceTree = "<group>";
+		};
+		A200000000000000000005FA = {
+			isa = PBXGroup;
+			children = (
+				A200000000000000000004FA /* SpleeterApp */,
+				A200000000000000000002FA /* Frameworks */,
+				A200000000000000000001FA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B140000000000000000001AA /* SpleeterApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B150000000000000000001AA /* Build configuration list for PBXNativeTarget "SpleeterApp" */;
+			buildPhases = (
+				B160000000000000000001AA /* Sources */,
+				B130000000000000000001AA /* Frameworks */,
+				B170000000000000000001AA /* Resources */,
+				B120000000000000000001AA /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SpleeterApp;
+			productName = SpleeterApp;
+			productReference = A100000000000000000000FA /* SpleeterApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C140000000000000000001AA /* SpleeterApp macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C150000000000000000001AA /* Build configuration list for PBXNativeTarget "SpleeterApp macOS" */;
+			buildPhases = (
+				C160000000000000000001AA /* Sources */,
+				C130000000000000000001AA /* Frameworks */,
+				C170000000000000000001AA /* Resources */,
+				C120000000000000000001AA /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SpleeterApp macOS";
+			productName = "SpleeterApp macOS";
+			productReference = A100000000000000000001FA /* SpleeterApp macOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A200000000000000000006FA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					B140000000000000000001AA = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					C140000000000000000001AA = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = A200000000000000000007FA /* Build configuration list for PBXProject "SpleeterApp" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A200000000000000000005FA;
+			productRefGroup = A200000000000000000001FA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B140000000000000000001AA /* SpleeterApp */,
+				C140000000000000000001AA /* SpleeterApp macOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B170000000000000000001AA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B107000000000000000001AA /* Assets.xcassets in Resources */,
+				B108000000000000000001AA /* vocals.int8.onnx in Resources */,
+				B109000000000000000001AA /* accompaniment.int8.onnx in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C170000000000000000001AA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C107000000000000000001AA /* Assets.xcassets in Resources */,
+				C108000000000000000001AA /* vocals.int8.onnx in Resources */,
+				C109000000000000000001AA /* accompaniment.int8.onnx in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B160000000000000000001AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B101000000000000000001AA /* SpleeterAppApp.swift in Sources */,
+				B102000000000000000001AA /* ContentView.swift in Sources */,
+				B103000000000000000001AA /* SeparatorEngine.swift in Sources */,
+				B104000000000000000001AA /* AudioPlayer.swift in Sources */,
+				B105000000000000000001AA /* AudioPicker.swift in Sources */,
+				B106000000000000000001AA /* SherpaOnnx.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C160000000000000000001AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C101000000000000000001AA /* SpleeterAppApp.swift in Sources */,
+				C102000000000000000001AA /* ContentView.swift in Sources */,
+				C103000000000000000001AA /* SeparatorEngine.swift in Sources */,
+				C104000000000000000001AA /* AudioPlayer.swift in Sources */,
+				C105000000000000000001AA /* AudioPicker.swift in Sources */,
+				C106000000000000000001AA /* SherpaOnnx.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A200000000000000000008FA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A200000000000000000009FA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B200000000000000000001AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V549N55U54;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../sherpa_onnx_voice/sherpa-onnx/build-ios-no-tts/sherpa-onnx.xcframework/Headers",
+				);
+				INFOPLIST_FILE = SpleeterApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dengxiaobao.SpleeterApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "SpleeterApp/SherpaOnnx-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B201000000000000000001AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V549N55U54;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../sherpa_onnx_voice/sherpa-onnx/build-ios-no-tts/sherpa-onnx.xcframework/Headers",
+				);
+				INFOPLIST_FILE = SpleeterApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dengxiaobao.SpleeterApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "SpleeterApp/SherpaOnnx-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C200000000000000000001AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V549N55U54;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../sherpa_onnx_voice/sherpa-onnx/build-swift-macos/sherpa-onnx.xcframework/macos-arm64_x86_64/Headers",
+				);
+				INFOPLIST_KEY_CFBundleDisplayName = Spleeter;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dengxiaobao.SpleeterApp.mac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "SpleeterApp/SherpaOnnx-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C201000000000000000001AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V549N55U54;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../sherpa_onnx_voice/sherpa-onnx/build-swift-macos/sherpa-onnx.xcframework/macos-arm64_x86_64/Headers",
+				);
+				INFOPLIST_KEY_CFBundleDisplayName = Spleeter;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dengxiaobao.SpleeterApp.mac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "SpleeterApp/SherpaOnnx-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A200000000000000000007FA /* Build configuration list for PBXProject "SpleeterApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A200000000000000000008FA /* Debug */,
+				A200000000000000000009FA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B150000000000000000001AA /* Build configuration list for PBXNativeTarget "SpleeterApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B200000000000000000001AA /* Debug */,
+				B201000000000000000001AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C150000000000000000001AA /* Build configuration list for PBXNativeTarget "SpleeterApp macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C200000000000000000001AA /* Debug */,
+				C201000000000000000001AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A200000000000000000006FA /* Project object */;
+}
