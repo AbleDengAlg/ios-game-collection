@@ -30,3 +30,16 @@ Pods/
 # IDEs
 .vscode/
 .idea/
+
+# ONNX Models — large binary files, users download separately
+*.onnx
+*.int8.onnx
+*.tar.bz2
+
+# Model directories (contain large downloaded models)
+sherpa_onnx_voice/Models/
+VoiceToTTS_sherpa/model/
+spleeter_onnx_sherpa/SpleeterApp/sherpa-onnx-spleeter-2stems-int8/
+
+# Local framework symlink (environment-specific)
+sherpa_onnx_voice

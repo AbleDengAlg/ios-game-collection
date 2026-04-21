@@ -66,6 +66,30 @@ An offline AI-powered vocal & accompaniment separation app. Uses Spleeter INT8 O
 
 📖 [Spleeter Tutorial / 项目教学文档](spleeter_onnx_sherpa/SpleeterApp/TUTORIAL.md) — Learn the code line by line!
 
+### 4. VoiceToTTS (语音转文字)
+An offline real-time Chinese speech-to-text app using sherpa-onnx streaming Zipformer-CTC INT8 model. Speak into the microphone and see text appear in chat bubbles instantly.
+
+**Features:**
+- 🎙️ Real-time streaming ASR — text appears as you speak
+- 🔒 Fully offline — no network, no cloud, all local inference
+- 📱 iOS 15+ with notch/Dynamic Island safe area support
+- 💬 Chat-style UI with incremental and finalized message bubbles
+- 🧠 Endpoint detection — automatically segments sentences
+- ⚡ 16kHz mono audio processing with AVAudioEngine
+
+**How to Use:**
+1. Launch the app (model loads automatically on startup)
+2. Tap the microphone button to start listening
+3. Speak in Chinese — text appears in real-time bubbles
+4. Stop speaking to finalize the current sentence
+5. Tap the stop button to end the session
+
+**⚠️ Note:** Requires downloading the sherpa-onnx streaming Zipformer-CTC Chinese INT8 model (~30MB) before first use.
+
+📖 [VoiceToTTS Tutorial / 英文教学文档](VoiceToTTS_sherpa/VoiceToTTS/TUTORIAL.md) — Learn the code line by line!
+
+📖 [VoiceToTTS 教案 / 简体中文教学文档](VoiceToTTS_sherpa/VoiceToTTS/TUTORIAL.zh.md) — 逐行学习代码！
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -90,6 +114,9 @@ cd ios-game-collection/Metronome && open Metronome.xcodeproj
 
 # Spleeter App (Audio Separation)
 cd ios-game-collection/spleeter_onnx_sherpa/SpleeterApp && open SpleeterApp.xcodeproj
+
+# VoiceToTTS (Speech-to-Text)
+cd ios-game-collection/VoiceToTTS_sherpa/VoiceToTTS && open VoiceToTTS.xcodeproj
 ```
 
 3. Build and run (⌘+R) on your iOS Simulator or device
@@ -97,6 +124,11 @@ cd ios-game-collection/spleeter_onnx_sherpa/SpleeterApp && open SpleeterApp.xcod
 **⚠️ Important for Spleeter App:**
 - Download Spleeter INT8 ONNX models before building
 - Models must be added to `SpleeterApp` target's Copy Bundle Resources
+
+**⚠️ Important for VoiceToTTS:**
+- Download the sherpa-onnx streaming Zipformer-CTC Chinese INT8 model before building
+- Add `model.int8.onnx`, `tokens.txt`, and `bbpe.model` to `VoiceToTTS` target's Copy Bundle Resources
+- Microphone access requires a physical iOS device (simulator has limited audio input support)
 
 ## 📱 Screenshots
 
@@ -109,6 +141,7 @@ cd ios-game-collection/spleeter_onnx_sherpa/SpleeterApp && open SpleeterApp.xcod
 - [x] Guess Number (猜数字)
 - [x] Metronome (节拍器)
 - [x] Spleeter App (音频分离)
+- [x] VoiceToTTS (语音转文字)
 - [ ] Tic-Tac-Toe (井字棋)
 - [ ] 2048
 - [ ] Snake (贪吃蛇)
@@ -124,7 +157,7 @@ cd ios-game-collection/spleeter_onnx_sherpa/SpleeterApp && open SpleeterApp.xcod
 - **Framework:** SwiftUI
 - **Language:** Swift 5.9+
 - **Audio:** AVAudioEngine (Metronome), AVAudioPlayer + AVFoundation (Spleeter)
-- **AI Inference:** ONNX Runtime + sherpa-onnx C API (Spleeter)
+- **AI Inference:** ONNX Runtime + sherpa-onnx C API (Spleeter, VoiceToTTS)
 - **Data Persistence:** SwiftData
 - **Architecture:** MVVM
 
