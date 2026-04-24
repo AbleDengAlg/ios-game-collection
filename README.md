@@ -1,6 +1,6 @@
 # 🎮 iOS Game & Tool Collection
 
-A collection of classic mini-games and AI-powered tools built with SwiftUI. Currently featuring **Guess Number**, **Metronome**, and **Spleeter App** (Audio Separation), with more coming soon!
+A collection of classic mini-games and AI-powered tools built with SwiftUI. Currently featuring **Guess Number**, **Metronome**, **Spleeter App** (Audio Separation), **VoiceToTTS** (Speech-to-Text), and **VoiceToTTS AI Chat** (Cross-platform AI Assistant), with more coming soon!
 
 [![Swift](https://img.shields.io/badge/Swift-5.9+-orange.svg)](https://swift.org)
 [![SwiftUI](https://img.shields.io/badge/SwiftUI-iOS%2017+-blue.svg)](https://developer.apple.com/xcode/swiftui/)
@@ -90,6 +90,29 @@ An offline real-time Chinese speech-to-text app using sherpa-onnx streaming Zipf
 
 📖 [VoiceToTTS 教案 / 简体中文教学文档](VoiceToTTS_sherpa/VoiceToTTS/TUTORIAL.zh.md) — 逐行学习代码！
 
+### 5. VoiceToTTS AI Chat (跨平台 AI 助手)
+A cross-platform AI voice assistant. Speak to your iPhone, send the transcribed text to a Python FastAPI backend over LAN, and receive AI-generated replies in a WeChat-style chat interface.
+
+**Features:**
+- 🎙️ Offline speech-to-text (sherpa-onnx streaming ASR)
+- 💬 WeChat-style chat UI — editable draft, send button, typing indicator
+- 🌐 LAN communication between iPhone and computer (same WiFi)
+- 🤖 Pluggable AI backend — swap between local FastAPI demo or real AI server
+- 🔐 Token-based API authentication
+- ⏱️ 130s client timeout for long AI inference
+- 🐍 Python FastAPI backend with CORS support
+
+**How to Use:**
+1. Start the Python FastAPI backend: `uvicorn test_fastapi:app --host 0.0.0.0 --port 8000`
+2. Enter the server IP and API Token in the iOS app
+3. Tap the microphone button and speak
+4. Edit the recognized text if needed, then tap send
+5. Watch the AI reply appear in a left-aligned bubble
+
+**⚠️ Note:** Requires downloading the sherpa-onnx streaming Zipformer-CTC Chinese INT8 model (~30MB). Server address and token are configured in-app (not hardcoded) to avoid leaking credentials.
+
+📖 [Backend Tutorial / 后端教程](VoiceToTTS_python_reponse/python_fastapi/BACKEND_TUTORIAL.md) — Python setup guide!
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -117,6 +140,9 @@ cd ios-game-collection/spleeter_onnx_sherpa/SpleeterApp && open SpleeterApp.xcod
 
 # VoiceToTTS (Speech-to-Text)
 cd ios-game-collection/VoiceToTTS_sherpa/VoiceToTTS && open VoiceToTTS.xcodeproj
+
+# VoiceToTTS AI Chat (Cross-platform AI Assistant)
+cd ios-game-collection/VoiceToTTS_python_reponse/VoiceToTTS && open VoiceToTTS.xcodeproj
 ```
 
 3. Build and run (⌘+R) on your iOS Simulator or device
@@ -130,11 +156,17 @@ cd ios-game-collection/VoiceToTTS_sherpa/VoiceToTTS && open VoiceToTTS.xcodeproj
 - Add `model.int8.onnx`, `tokens.txt`, and `bbpe.model` to `VoiceToTTS` target's Copy Bundle Resources
 - Microphone access requires a physical iOS device (simulator has limited audio input support)
 
+**⚠️ Important for VoiceToTTS AI Chat:**
+- Download the sherpa-onnx model as above
+- Start the Python backend first before running the iOS app
+- Ensure iPhone and computer are on the same WiFi network
+- Enter the correct server IP and API Token in the app
+
 ## 📱 Screenshots
 
-| Guess Number | Metronome | Spleeter App |
-|:---:|:---:|:---:|
-| 🎯 | 🎵 | 🎤 |
+| Guess Number | Metronome | Spleeter App | VoiceToTTS AI Chat |
+|:---:|:---:|:---:|:---:|
+| 🎯 | 🎵 | 🎤 | 🤖 |
 
 ## 🗺️ Roadmap
 
@@ -142,6 +174,7 @@ cd ios-game-collection/VoiceToTTS_sherpa/VoiceToTTS && open VoiceToTTS.xcodeproj
 - [x] Metronome (节拍器)
 - [x] Spleeter App (音频分离)
 - [x] VoiceToTTS (语音转文字)
+- [x] VoiceToTTS AI Chat (跨平台 AI 助手)
 - [ ] Tic-Tac-Toe (井字棋)
 - [ ] 2048
 - [ ] Snake (贪吃蛇)
@@ -158,6 +191,7 @@ cd ios-game-collection/VoiceToTTS_sherpa/VoiceToTTS && open VoiceToTTS.xcodeproj
 - **Language:** Swift 5.9+
 - **Audio:** AVAudioEngine (Metronome), AVAudioPlayer + AVFoundation (Spleeter)
 - **AI Inference:** ONNX Runtime + sherpa-onnx C API (Spleeter, VoiceToTTS)
+- **Backend:** Python + FastAPI (VoiceToTTS AI Chat)
 - **Data Persistence:** SwiftData
 - **Architecture:** MVVM
 

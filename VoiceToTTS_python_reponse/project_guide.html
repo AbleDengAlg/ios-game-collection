@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceToTTS 跨平台 AI 助手 — 项目开发指南</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #dbeafe;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+            line-height: 1.7;
+            color: var(--gray-800);
+            background: var(--gray-50);
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+            color: white;
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+        .hero .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+        .hero .badges {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Section */
+        section { padding: 60px 0; }
+        section.alt { background: white; }
+        h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        h2 .icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        h3 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin: 32px 0 16px;
+        }
+        h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin: 24px 0 12px;
+        }
+        p { margin-bottom: 16px; color: var(--gray-600); }
+
+        /* Signal Flow Diagram */
+        .flow-diagram {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            margin: 32px 0;
+            overflow-x: auto;
+        }
+        .flow-diagram .layer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            position: relative;
+        }
+        .flow-diagram .layer:last-child { margin-bottom: 0; }
+        .flow-node {
+            background: var(--gray-100);
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 16px 20px;
+            min-width: 140px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .flow-node.ios { background: #dbeafe; border-color: #93c5fd; color: #1e40af; }
+        .flow-node.audio { background: #fef3c7; border-color: #fcd34d; color: #92400e; }
+        .flow-node.ai { background: #d1fae5; border-color: #6ee7b7; color: #065f46; }
+        .flow-node.net { background: #fce7f3; border-color: #f9a8d4; color: #9d174d; }
+        .flow-node.server { background: #e0e7ff; border-color: #a5b4fc; color: #3730a3; }
+        .flow-arrow {
+            flex: 1;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gray-300), var(--primary));
+            margin: 0 12px;
+            position: relative;
+            min-width: 40px;
+        }
+        .flow-arrow::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -5px;
+            border: 6px solid transparent;
+            border-left: 10px solid var(--primary);
+        }
+        .flow-label {
+            position: absolute;
+            top: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            color: var(--gray-600);
+            background: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            border: 1px solid var(--gray-200);
+        }
+        .flow-return {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        .flow-return .arrow-down {
+            width: 3px;
+            height: 40px;
+            background: linear-gradient(180deg, var(--primary), var(--success));
+            position: relative;
+        }
+        .flow-return .arrow-down::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -5px;
+            border: 6px solid transparent;
+            border-top: 10px solid var(--success);
+        }
+
+        /* Pomodoro Timeline */
+        .pomodoro-timeline {
+            position: relative;
+            padding-left: 48px;
+        }
+        .pomodoro-timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 8px;
+            bottom: 8px;
+            width: 3px;
+            background: linear-gradient(180deg, var(--primary), var(--success));
+            border-radius: 3px;
+        }
+        .pomo-card {
+            background: white;
+            border-radius: 14px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .pomo-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        .pomo-card::before {
+            content: attr(data-pomo);
+            position: absolute;
+            left: -48px;
+            top: 28px;
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+        .pomo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .pomo-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+        .pomo-time {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .signal-box {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 16px;
+            margin: 16px 0;
+            padding: 16px;
+            background: var(--gray-50);
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+        .signal-in { color: var(--primary); font-weight: 600; }
+        .signal-out { color: var(--success); font-weight: 600; }
+        .signal-arrow { color: var(--gray-400); font-size: 1.2rem; }
+        .file-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+        .file-tag {
+            background: var(--gray-100);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            font-family: "SF Mono", Monaco, "Cascadia Code", monospace;
+        }
+
+        /* Code block */
+        pre {
+            background: var(--gray-900);
+            color: #e5e7eb;
+            padding: 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin: 16px 0;
+        }
+        code {
+            font-family: "SF Mono", Monaco, "Cascadia Code", "Fira Code", monospace;
+        }
+        code:not(pre code) {
+            background: var(--gray-100);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--primary);
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9rem;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        th {
+            background: var(--gray-100);
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--gray-100);
+            color: var(--gray-600);
+        }
+        tr:last-child td { border-bottom: none; }
+
+        /* Tip box */
+        .tip {
+            background: #ecfdf5;
+            border-left: 4px solid var(--success);
+            padding: 16px 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 20px 0;
+        }
+        .tip-title {
+            font-weight: 700;
+            color: #065f46;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Warning */
+        .warning {
+            background: #fffbeb;
+            border-left: 4px solid var(--accent);
+            padding: 16px 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 20px 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--gray-900);
+            color: var(--gray-200);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2rem; }
+            .flow-diagram { padding: 20px; }
+            .flow-diagram .layer { flex-direction: column; gap: 12px; }
+            .flow-arrow { width: 3px; height: 30px; margin: 0; }
+            .flow-arrow::after { top: auto; bottom: 0; left: -5px; border: 6px solid transparent; border-top: 10px solid var(--primary); }
+            .pomodoro-timeline { padding-left: 36px; }
+            .pomo-card::before { left: -36px; width: 26px; height: 26px; font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+    <div class="container">
+        <h1>VoiceToTTS 跨平台 AI 助手</h1>
+        <p class="subtitle">基于番茄时钟法的项目开发指南 — 从离线语音识别到真实 AI 对话的完整信号流解析</p>
+        <div class="badges">
+            <span class="badge">iOS + SwiftUI</span>
+            <span class="badge">sherpa-onnx ASR</span>
+            <span class="badge">AI Chat</span>
+            <span class="badge">Token 认证</span>
+            <span class="badge">130s 超时</span>
+        </div>
+    </div>
+</div>
+
+<!-- Overview -->
+<section class="alt">
+    <div class="container">
+        <h2><span class="icon">&#128200;</span>项目总览</h2>
+        <p>本项目是一个跨平台语音 AI 助手，包含 iPhone 端和 AI 服务端：</p>
+        <ul style="margin-left: 20px; color: var(--gray-600); margin-bottom: 20px;">
+            <li><strong>iPhone 端</strong>：基于 SwiftUI 的 iOS App，集成 sherpa-onnx 离线语音识别引擎，支持语音转文字、草稿编辑、手动发送、AI 打字指示器</li>
+            <li><strong>AI 服务端</strong>：用户自托管的后端服务，支持 Token 认证，接收 {"message": "..."} 并返回 AI 推理结果（最长 120s）</li>
+        </ul>
+        <p>两端通过 HTTP 协议通信，iOS 端使用 130s 超时 URLSession 匹配服务端限制。开源代码中不保留任何服务器地址或 Token，运行时通过 App 界面配置。</p>
+    </div>
+</section>
+
+<!-- Signal Flow -->
+<section>
+    <div class="container">
+        <h2><span class="icon">&#9889;</span>系统信号流向图</h2>
+        <p>理解信号如何在整个系统中流动，是掌握本项目的关键。下面按照数据产生的先后顺序展示完整的信号链：</p>
+        
+        <div class="flow-diagram">
+            <div class="layer">
+                <div class="flow-node ios">用户说话 / 打字<br><small style="font-weight:400;opacity:0.7">语音或键盘输入</small></div>
+                <div class="flow-arrow"><span class="flow-label">声波 / 字符</span></div>
+                <div class="flow-node audio">iPhone 麦克风<br><small style="font-weight:400;opacity:0.7">48kHz 立体声</small></div>
+            </div>
+            <div class="layer">
+                <div class="flow-node audio">AVAudioEngine<br><small style="font-weight:400;opacity:0.7">格式转换</small></div>
+                <div class="flow-arrow"><span class="flow-label">[Float] 16kHz 单声道</span></div>
+                <div class="flow-node ai">SherpaOnnx<br>Recognizer<br><small style="font-weight:400;opacity:0.7">ONNX 推理</small></div>
+            </div>
+            <div class="layer">
+                <div class="flow-node ai">识别结果<br><small style="font-weight:400;opacity:0.7">String 文本</small></div>
+                <div class="flow-arrow"><span class="flow-label">draftText</span></div>
+                <div class="flow-node ios">可编辑草稿<br><small style="font-weight:400;opacity:0.7">用户可修改后发送</small></div>
+            </div>
+            <div class="layer">
+                <div class="flow-node ios">用户点击发送<br><small style="font-weight:400;opacity:0.7">sendDraft()</small></div>
+                <div class="flow-arrow"><span class="flow-label">触发网络请求</span></div>
+                <div class="flow-node ios">isSending = true<br><small style="font-weight:400;opacity:0.7">显示打字指示器</small></div>
+            </div>
+            <div class="layer">
+                <div class="flow-node ios">URLSession<br>POST /send_msg</div>
+                <div class="flow-arrow"><span class="flow-label">HTTP + X-API-Token</span></div>
+                <div class="flow-node net">AI 服务器<br><small style="font-weight:400;opacity:0.7">用户自托管</small></div>
+            </div>
+            <div class="layer">
+                <div class="flow-node net">AI 推理<br><small style="font-weight:400;opacity:0.7">最长 120s</small></div>
+                <div class="flow-arrow"><span class="flow-label">生成回复</span></div>
+                <div class="flow-node server">JSON 响应<br><small style="font-weight:400;opacity:0.7">{code, 后端回复}</small></div>
+            </div>
+            <div class="flow-return">
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                    <div style="font-size:0.8rem;color:var(--gray-600);margin-bottom:8px;">返回 AI 回答内容</div>
+                    <div class="arrow-down"></div>
+                </div>
+            </div>
+            <div class="layer" style="margin-top:16px;">
+                <div class="flow-node server">isSending = false</div>
+                <div class="flow-arrow" style="background:linear-gradient(90deg,var(--success),var(--primary));"><span class="flow-label">更新 UI</span></div>
+                <div class="flow-node ios">iPhone 显示<br>AI 回复<br><small style="font-weight:400;opacity:0.7">左对齐灰色气泡</small></div>
+            </div>
+        </div>
+
+        <div class="tip">
+            <div class="tip-title">&#128161; 信号流核心规律</div>
+            <p style="margin:0;color:#065f46;">升级后的系统遵循"<strong>音频 → 草稿 → 用户确认 → 网络 → AI 推理 → UI</strong>"的受控流动模式。用户在每个关键节点都拥有控制权，同时通过打字指示器和分类错误提示获得完整的反馈闭环。</p>
+        </div>
+    </div>
+</section>
+
+<!-- Pomodoro Plan -->
+<section class="alt">
+    <div class="container">
+        <h2><span class="icon">&#127813;</span>番茄时钟开发计划</h2>
+        <p>每个番茄 = <strong>25分钟专注开发</strong> + 5分钟休息。将复杂项目拆分为 8 个可独立完成的番茄，循序渐进。</p>
+
+        <div class="pomodoro-timeline">
+            
+            <!-- Pomo 1 -->
+            <div class="pomo-card" data-pomo="1">
+                <div class="pomo-header">
+                    <div class="pomo-title">环境准备与项目架构理解</div>
+                    <div class="pomo-time">25 min</div>
+                </div>
+                <p>搭建 Python conda 环境，理解 iOS 项目文件结构，明确各模块职责。</p>
+                <div class="signal-box">
+                    <div class="signal-in">输入：conda, Python 3.10, Xcode 项目</div>
+                    <div class="signal-arrow">&#10132;</div>
+                    <div class="signal-out">输出：可运行的环境 + 项目认知</div>
+                </div>
+                <div class="file-tags">
+                    <span class="file-tag">firstpythonEnv310</span>
+                    <span class="file-tag">VoiceToTTS.xcodeproj</span>
+                    <span class="file-tag">model/sherpa-onnx-*</span>
+                </div>
+            </div>
+
+            <!-- Pomo 2 -->
+            <div class="pomo-card" data-pomo="2" style="border-left-color: var(--accent);">
+                <div class="pomo-header">
+                    <div class="pomo-title">iOS 语音识别核心 — 模型加载</div>
+                    <div class="pomo-time">25 min</div>
+                </div>
+                <p>实现 <code>RecognizerEngine.load()</code>，加载 ONNX 模型到内存，配置特征提取器和 Zipformer2-CTC 网络。</p>
+                <div class="signal-box">
+                    <div class="signal-in">输入：model.int8.onnx, tokens.txt, bbpe.model</div>
+                    <div class="signal-arrow">&#10132;</div>
+                    <div class="signal-out">输出：SherpaOnnxRecognizer 实例</div>
+                </div>
+                <table>
+                    <tr><th>配置项</th><th>值</th><th>作用</th></tr>
+                    <tr><td>sampleRate</td><td>16000</td><td>模型要求的采样率</td></tr>
+                    <tr><td>featureDim</td><td>80</td><td>梅尔滤波器组维度</td></tr>
+                    <tr><td>numThreads</td><td>2</td><td>CPU 推理线程数</td></tr>
+                    <tr><td>enableEndpoint</td><td>true</td><td>自动检测说话结束</td></tr>
+                </table>
+                <div class="file-tags">
+                    <span class="file-tag">RecognizerEngine.swift</span>
+                    <span class="file-tag">SherpaOnnx.swift</span>
+                </div>
+            </div>
+
+            <!-- Pomo 3 -->
+            <div class="pomo-card" data-pomo="3" style="border-left-color: var(--accent);">
+                <div class="pomo-header">
+                    <div class="pomo-title">iOS 音频采集与格式转换</div>
+                    <div class="pomo-time">25 min</div>
+                </div>
+                <p>配置 AVAudioSession，从麦克风采集 48kHz 立体声，实时转换为 16kHz 单声道 Float 数组。</p>
+                <div class="signal-box">
+                    <div class="signal-in">输入：模拟声波 → 48kHz PCM</div>
+                    <div class="signal-arrow">&#10132;</div>
+                    <div class="signal-out">输出：[Float] 16kHz 单声道</div>
+                </div>
+                <div class="warning">
+                    <strong>&#9888; 关键顺序：</strong>必须先 <code>setActive(true)</code> 音频会话，再查询 inputNode 的格式，否则转换器返回 nil。
+                </div>
+                <div class="file-tags">
+                    <span class="file-tag">AudioRecorder.swift</span>
+                </div>
+            </div>
+
+            <!-- Pomo 4 -->
+            <div class="pomo-card" data-pomo="4" style="border-left-color: var(--success);">
+                <div class="pomo-header">
+                    <div class="pomo-title">语音识别循环与端点检测</div>
+                    <div class="pomo-time">25 min</div>
+                </div>
+                <p>实现 <code>processAudioChunk()</code>：喂入音频 → 检查就绪 → 解码推理 → 获取部分结果 → 检测端点。</p>
+                <div class="signal-box">
+                    <div class="signal-in">输入：[Float] 音频块</div>
+                    <div class="signal-arrow">&#10132;</div>
+                    <div class="signal-out">输出：String 文本 + isEndpoint 信号</div>
+                </div>
+                <pre><code>// 核心循环伪代码
+while 录音中:
+    recognizer.acceptWaveform(samples, sampleRate: 16000)
+    while recognizer.isReady():
+        recognizer.decode()           // ONNX 推理
+    result = recognizer.getResult()   // 部分转录
+    if recognizer.isEndpoint():       // 检测到停顿
+        finalizeCurrentText(result)   // 完成当前句</code></pre>
+                <div class="file-tags">
+                    <span class="file-tag">RecognizerEngine.swift</span>
+                </div>
+            </div>
+
+            <!-- Pomo 5 -->
+            <div class="pomo-card" data-pomo="5" style="border-left-color: var(--success);">
+                <div class="pomo-header">
+                    <div class="pomo-title">iOS 微信式聊天 UI</div>
+                    <div class="pomo-time">25 min</div>
+                </div>
+                <p>构建 SwiftUI 聊天界面：自动滚动列表、左右区分气泡、麦克风按钮状态联动、服务器地址输入框、可编辑草稿、发送按钮、AI 打字指示器。</p>
+                <div class="signal-box">
+                    <div class="signal-in">输入：@Published messages, draftText, isSending</div>
+                    <div class="signal-arrow">&#10132;</div>
+                    <div class="signal-out">输出：用户交互 + 视觉反馈</div>
+                </div>
+                <table>
+                    <tr><th>UI 组件</th><th>信号来源</th><th>视觉表现</th></tr>
+                    <tr><td>MessageBubble (isUser=true)</td><td>用户发送的消息</td><td>右侧，蓝色背景</td></tr>
+                    <tr><td>MessageBubble (isUser=false)</td><td>后端 JSON 回复</td><td>左侧，灰色背景</td></tr>
+                    <tr><td>TypingIndicatorBubble</td><td>isSending == true</td><td>"AI 正在输入..."</td></tr>
+                    <tr><td>文本输入框</td><td>$engine.draftText</td><td>语音结果与键盘共享</td></tr>
+                    <tr><td>发送按钮</td><td>draftText 非空且未发送中</td><td>高亮可点击</td></tr>
+                    <tr><td>Mic 按钮红色</td><td>state == .listening</td><td>表示正在录音</td></tr>
+                </table>
+                <div class="file-tags">
+                    <span class="file-tag">ContentView.swift</span>
+                </div>
+            </div>
+
+            <!-- Pomo 6 -->
+            <div class="pomo-card" data-pomo="6" style="border-left-color: var(--danger);">
+                <div class="pomo-header">
+                    <div class="pomo-title">后端接口契约设计</div>
+                    <div class="pomo-time">25 min</div>
+                </div>
+                <p>设计 AI 服务端接口：POST /send_msg，接收 {"message": "..."}，支持 X-API-Token 认证，返回 {"code": 200, "后端回复": "..."}。可使用 Python FastAPI、Node.js、或任何后端框架实现。</p>
+                <div class="signal-box">
+                    <div class="signal-in">输入：POST /send_msg + X-API-Token</div>
+                    <div class="signal-arrow">&#10132;</div>
+                    <div class="signal-out">输出：JSON {code, 后端回复, error}</div>
+                </div>
+                <pre><code># FastAPI 示例
+@app.post("/send_msg")
+async def send_msg(request: Request):
+    token = request.headers.get("X-API-Token")
+    if token != API_SECRET_TOKEN:
+        return {"code": 401, "error": "Invalid token"}
+    data = await request.json()
+    user_msg = data.get("message", "")
+    ai_reply = await call_llm(user_msg)  # 调用大模型
+    return {"code": 200, "后端回复": ai_reply}</code></pre>
+                <div class="warning">
+                    <strong>&#9888; 安全提示：</strong>开源代码中不硬编码服务器地址和 Token。运行时通过 App 界面输入，或本地维护一个不被 Git 跟踪的配置文件。
+                </div>
+                <div class="file-tags">
+                    <span class="file-tag">test_fastapi.py</span>
+                    <span class="file-tag">send_to_server.py</span>
+                </div>
+            </div>
+
+            <!-- Pomo 7 -->
+            <div class="pomo-card" data-pomo="7" style="border-left-color: var(--danger);">
+                <div class="pomo-header">
+                    <div class="pomo-title">网络层 — 健壮 HTTP 客户端</div>
+                    <div class="pomo-time">25 min</div>
+                </div>
+                <p>在 <code>RecognizerEngine</code> 中实现 <code>sendToServer()</code>：自定义 130s 超时 URLSession、X-API-Token 认证、{"message": text} 请求体、完整的分类错误处理。</p>
+                <div class="signal-box">
+                    <div class="signal-in">输入：draftText (String) + serverURL + apiToken</div>
+                    <div class="signal-arrow">&#10132;</div>
+                    <div class="signal-out">输出：AI 回复 或 分类错误提示 → 新增消息</div>
+                </div>
+                <pre><code>// 网络信号转换
+let config = URLSessionConfiguration.default
+config.timeoutIntervalForRequest = 130  // 匹配服务端 120s
+let session = URLSession(configuration: config)
+
+var request = URLRequest(url: serverURL + "/send_msg")
+request.setValue(apiToken, forHTTPHeaderField: "X-API-Token")
+let body = ["message": text]
+↓
+URLSession (background thread)
+↓
+分类错误处理：超时 / 断网 / JSON 异常 / 业务码 ≠ 200
+↓
+Task { @MainActor in
+    isSending = false
+    addServerMessage(text: reply) // 更新 @Published
+}</code></pre>
+                <div class="warning">
+                    <strong>&#9888; 线程安全：</strong>URLSession 回调在后台线程，必须通过 <code>Task { @MainActor in }</code> 切回主线程才能更新 <code>@Published</code> 属性，否则 SwiftUI 会崩溃。
+                </div>
+                <div class="file-tags">
+                    <span class="file-tag">RecognizerEngine.swift</span>
+                    <span class="file-tag">Info.plist (ATS)</span>
+                </div>
+            </div>
+
+            <!-- Pomo 8 -->
+            <div class="pomo-card" data-pomo="8" style="border-left-color: #8b5cf6;">
+                <div class="pomo-header">
+                    <div class="pomo-title">局域网 Demo 联调</div>
+                    <div class="pomo-time">25 min</div>
+                </div>
+                <p>使用 Python FastAPI 搭建本地测试后端，验证 iOS 到电脑的局域网通信闭环。此步骤为后续接入真实 AI 服务器打下基础。</p>
+                <div class="signal-box">
+                    <div class="signal-in">输入：用户语音 + 局域网 IP 配置</div>
+                    <div class="signal-arrow">&#10132;</div>
+                    <div class="signal-out">输出：固定回复 "hello world!"</div>
+                </div>
+                <h4>联调检查清单</h4>
+                <table>
+                    <tr><th>检查项</th><th>命令/方法</th><th>预期结果</th></tr>
+                    <tr><td>后端启动</td><td><code>uvicorn ... --host 0.0.0.0</code></td><td>监听 0.0.0.0:8000</td></tr>
+                    <tr><td>本机测试</td><td><code>curl POST 127.0.0.1:8000/chat</code></td><td>返回 JSON</td></tr>
+                    <tr><td>局域网测试</td><td><code>curl POST YOUR_IP:8000/chat</code></td><td>返回 JSON</td></tr>
+                    <tr><td>iPhone Safari</td><td>访问 http://YOUR_IP:8000/docs</td><td>显示 FastAPI 文档</td></tr>
+                    <tr><td>App 输入框</td><td>填入 http://YOUR_IP:8000</td><td>与后端地址一致</td></tr>
+                    <tr><td>完整闭环</td><td>说一句话</td><td>双侧气泡均出现</td></tr>
+                </table>
+                <div class="file-tags">
+                    <span class="file-tag">test_fastapi.py</span>
+                    <span class="file-tag">ContentView.swift</span>
+                    <span class="file-tag">终端 / Xcode</span>
+                </div>
+            </div>
+
+            <!-- Pomo 9 -->
+            <div class="pomo-card" data-pomo="9" style="border-left-color: #8b5cf6;">
+                <div class="pomo-header">
+                    <div class="pomo-title">接入真实 AI 服务器</div>
+                    <div class="pomo-time">25 min</div>
+                </div>
+                <p>将固定回复后端替换为真实 AI 服务器。修改 iOS 端 endpoint 为 /send_msg，添加 Token 认证和 130s 超时，实现可编辑草稿与手动发送。</p>
+                <div class="signal-box">
+                    <div class="signal-in">输入：draftText + serverURL + apiToken</div>
+                    <div class="signal-arrow">&#10132;</div>
+                    <div class="signal-out">输出：真实 AI 回复 + 分类错误提示</div>
+                </div>
+                <table>
+                    <tr><th>改动点</th><th>LAN Demo</th><th>真实 AI 服务器</th></tr>
+                    <tr><td>接口路径</td><td>/chat</td><td>/send_msg</td></tr>
+                    <tr><td>请求体</td><td>{"text": "..."}</td><td>{"message": "..."}</td></tr>
+                    <tr><td>认证</td><td>无</td><td>X-API-Token</td></tr>
+                    <tr><td>超时</td><td>默认 60s</td><td>130s</td></tr>
+                    <tr><td>发送方式</td><td>自动发送</td><td>用户手动发送</td></tr>
+                    <tr><td>文字修正</td><td>不可修改</td><td>draftText 可编辑</td></tr>
+                    <tr><td>等待反馈</td><td>无</td><td>"AI 正在输入..."</td></tr>
+                    <tr><td>错误处理</td><td>简单描述</td><td>分类错误提示</td></tr>
+                </table>
+                <div class="tip">
+                    <div class="tip-title">&#128161; 安全最佳实践</div>
+                    <p style="margin:0;color:#065f46;">开源代码中默认将 <code>serverURL</code> 和 <code>apiToken</code> 设为空字符串。实际使用时在 App 界面中填入，或在本地维护一个私有配置文件并加入 <code>.gitignore</code>。</p>
+                </div>
+                <div class="file-tags">
+                    <span class="file-tag">RecognizerEngine.swift</span>
+                    <span class="file-tag">ContentView.swift</span>
+                    <span class="file-tag">send_to_server.py</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Module Detail -->
+<section>
+    <div class="container">
+        <h2><span class="icon">&#128736;</span>功能模块与信号矩阵</h2>
+        <p>每个模块的输入、处理和输出信号一览，便于快速定位问题和理解数据转换。</p>
+        
+        <table>
+            <tr>
+                <th>模块</th>
+                <th>输入信号</th>
+                <th>处理</th>
+                <th>输出信号</th>
+            </tr>
+            <tr>
+                <td><strong>AudioRecorder</strong></td>
+                <td>模拟声波</td>
+                <td>AVAudioEngine 采集 + 格式转换</td>
+                <td>[Float] 16kHz 单声道</td>
+            </tr>
+            <tr>
+                <td><strong>SherpaOnnxRecognizer</strong></td>
+                <td>[Float] 音频块</td>
+                <td>特征提取 + Zipformer2-CTC 推理</td>
+                <td>String 文本 + bool 端点</td>
+            </tr>
+            <tr>
+                <td><strong>RecognizerEngine</strong></td>
+                <td>音频块 / 网络回复 / 用户输入</td>
+                <td>状态管理 + 草稿编辑 + 消息生命周期 + 网络通信</td>
+                <td>@Published messages + draftText + isSending + state</td>
+            </tr>
+            <tr>
+                <td><strong>ContentView</strong></td>
+                <td>@Published 数据</td>
+                <td>SwiftUI 声明式渲染 + 微信式输入栏</td>
+                <td>视觉界面 + 用户交互</td>
+            </tr>
+            <tr>
+                <td><strong>URLSession</strong></td>
+                <td>String 文本 + serverURL + apiToken</td>
+                <td>序列化 JSON + HTTP POST + 130s 超时 + Token 认证</td>
+                <td>JSON Response (后台线程)</td>
+            </tr>
+            <tr>
+                <td><strong>AI Server /send_msg</strong></td>
+                <td>JSON {message} + X-API-Token</td>
+                <td>Token 校验 + AI 推理（最长 120s）</td>
+                <td>JSON {code, 后端回复, error}</td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+<!-- Extension -->
+<section class="alt">
+    <div class="container">
+        <h2><span class="icon">&#128640;</span>下一步扩展路线图</h2>
+        <p>当前系统已实现"语音 → 可编辑草稿 → 手动发送 → AI 推理 → 打字指示器 → 回复气泡"的完整微信式对话体验。以下是值得继续探索的方向：</p>
+
+        <div class="pomodoro-timeline" style="margin-top: 32px;">
+            <div class="pomo-card" data-pomo="&#9733;" style="border-left-color: var(--primary);">
+                <div class="pomo-header">
+                    <div class="pomo-title">语音合成反馈 (TTS)</div>
+                    <div class="pomo-time">AVSpeechSynthesizer</div>
+                </div>
+                <p>在 iPhone 端将后端 AI 文字回复通过系统 TTS 朗读出来，实现真正的"语音对话"闭环体验。</p>
+            </div>
+            <div class="pomo-card" data-pomo="&#9733;" style="border-left-color: var(--primary);">
+                <div class="pomo-header">
+                    <div class="pomo-title">对话历史持久化</div>
+                    <div class="pomo-time">SwiftData / Core Data</div>
+                </div>
+                <p>将 <code>messages</code> 保存到本地数据库，支持历史会话查看、搜索、按日期分组，跨启动保留聊天记录。</p>
+            </div>
+            <div class="pomo-card" data-pomo="&#9733;" style="border-left-color: var(--primary);">
+                <div class="pomo-header">
+                    <div class="pomo-title">多轮对话上下文</div>
+                    <div class="pomo-time">Conversation Memory</div>
+                </div>
+                <p>将最近 N 条对话历史一起发送给 AI 服务器，实现上下文感知的连续对话，而非单轮问答。</p>
+            </div>
+            <div class="pomo-card" data-pomo="&#9733;" style="border-left-color: var(--primary);">
+                <div class="pomo-header">
+                    <div class="pomo-title">本地大模型离线运行</div>
+                    <div class="pomo-time">llama.cpp / mlx-swift</div>
+                </div>
+                <p>在 iPhone 本地运行轻量化 LLM（如 Qwen 1.8B、Phi-3），无需网络即可对话，彻底保护隐私。</p>
+            </div>
+            <div class="pomo-card" data-pomo="&#9733;" style="border-left-color: var(--primary);">
+                <div class="pomo-header">
+                    <div class="pomo-title">Markdown / 代码高亮渲染</div>
+                    <div class="pomo-time">SwiftUI AttributedString</div>
+                </div>
+                <p>AI 回复中常包含代码块、公式、列表。将 MessageBubble 升级为支持 Markdown 渲染的富文本组件。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>VoiceToTTS 跨平台 AI 助手项目开发指南</p>
+        <p style="opacity: 0.6; margin-top: 8px;">基于番茄时钟法拆解 | 信号流向驱动理解</p>
+    </div>
+</footer>
+
+</body>
+</html>

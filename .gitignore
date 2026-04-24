@@ -43,3 +43,9 @@ spleeter_onnx_sherpa/SpleeterApp/sherpa-onnx-spleeter-2stems-int8/
 
 # Local framework symlink (environment-specific)
 sherpa_onnx_voice
+
+# VoiceToTTS_python_reponse — privacy & large models
+VoiceToTTS_python_reponse/PROMPT_TUTORIAL.md
+VoiceToTTS_python_reponse/model/
+VoiceToTTS_python_reponse/**/__pycache__/
+VoiceToTTS_python_reponse/**/*.pyc
